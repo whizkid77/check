@@ -72,7 +72,7 @@ func (b *bytesEquals) Check(params []interface{}, names []string) (bool, string)
 	if bytes.Equal(b1, b2) {
 		return true, ""
 	}
-	return false, "Byte arrays were different"
+	return false, ""
 }
 
 func (b *bytesEquals) Info() *CheckerInfo {

@@ -35,3 +35,8 @@ func (s *CheckersS) TestCompare(c *check.C) {
 	c.Assert([]byte("ABC"), check.Less, []byte("ABCD"))
 	c.Assert(3.14, check.Less, 3.145)
 }
+
+func (s *CheckersS) TestBytes(c *check.C) {
+	c.Assert([]byte{0x00}, check.BytesEquals, []byte{0x00})
+	c.Assert([]byte{0x00}, check.Not(check.BytesEquals), []byte{0x01})
+}
