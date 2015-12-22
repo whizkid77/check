@@ -39,3 +39,8 @@ func (s *CheckersS) TestCompare(c *check.C) {
 	c.Assert(time.Duration(1), check.Greater, time.Duration(0))
 	c.Assert(time.Now(), check.Less, time.Now().Add(10*time.Second))
 }
+
+func (s *CheckersS) TestBytes(c *check.C) {
+	c.Assert([]byte{0x00}, check.BytesEquals, []byte{0x00})
+	c.Assert([]byte{0x00}, check.Not(check.BytesEquals), []byte{0x01})
+}
