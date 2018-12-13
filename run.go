@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"sync"
 	"testing"
 	"time"
 )
@@ -43,6 +44,8 @@ var (
 	newListFlag    = flag.Bool("check.list", false, "List the names of all tests that will be run")
 	newWorkFlag    = flag.Bool("check.work", false, "Display and do not remove the test working directory")
 	newExcludeFlag = flag.String("check.exclude", "", "Regular expression to exclude tests to run")
+
+	CustomParallelSuiteFlag = flag.Bool("check.p", false, "Run suites in parallel")
 )
 
 var CustomVerboseFlag bool
@@ -84,10 +87,30 @@ func TestingT(testingT *testing.T) {
 // provided run configuration.
 func RunAll(runConf *RunConf) *Result {
 	result := Result{}
+	if !*CustomParallelSuiteFlag {
+		for _, suite := range allSuites {
+			result.Add(Run(suite, runConf))
+		}
+		return &result
+	}
+
+	wg := sync.WaitGroup{}
+	suiteRunners := make([]*suiteRunner, 0, len(allSuites))
 	for _, suite := range allSuites {
-		result.Add(Run(suite, runConf))
+		suiteRunners = append(suiteRunners, parallelRun(suite, runConf, &wg))
+	}
+	wg.Wait()
+	for _, runner := range suiteRunners {
+		ret := &runner.tracker.result
+		result.Add(ret)
 	}
 	return &result
+}
+
+func parallelRun(suite interface{}, runConf *RunConf, wg *sync.WaitGroup) *suiteRunner {
+	runner := newSuiteRunner(suite, runConf)
+	runner.asyncRun(wg)
+	return runner
 }
 
 // Run runs the provided test suite using the provided run configuration.
