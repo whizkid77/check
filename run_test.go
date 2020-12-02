@@ -7,7 +7,7 @@ import (
 	"os"
 	"sync"
 
-	. "github.com/pingcap/check"
+	. "github.com/whizkid77/check"
 )
 
 var runnerS = Suite(&RunS{})

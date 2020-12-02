@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pingcap/log"
+	"github.com/whizkid77/log"
 	"go.uber.org/zap"
 )
 

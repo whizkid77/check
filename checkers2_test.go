@@ -3,7 +3,7 @@ package check_test
 import (
 	"time"
 
-	"github.com/pingcap/check"
+	"github.com/whizkid77/check"
 )
 
 func testHasKey(c *check.C, expectedResult bool, expectedErr string, params ...interface{}) {

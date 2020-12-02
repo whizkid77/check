@@ -13,7 +13,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/pingcap/check"
+	"github.com/whizkid77/check"
 )
 
 // -----------------------------------------------------------------------

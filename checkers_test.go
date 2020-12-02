@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"github.com/pingcap/check"
+	"github.com/whizkid77/check"
 )
 
 type CheckersS struct{}

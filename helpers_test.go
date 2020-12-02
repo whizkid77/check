@@ -9,7 +9,7 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/pingcap/check"
+	"github.com/whizkid77/check"
 )
 
 var helpersS = check.Suite(&HelpersS{})
